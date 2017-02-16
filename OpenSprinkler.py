@@ -914,7 +914,7 @@ class OS_NotPermittedException(OS_Exception):
 if __name__ == "__main__":
     ######################################################################################                
     # The fun begins here
-    fred = OpenSprinkler('10.0.1.31', '8080', 'KirasFlowersNeedLove')
+    fred = OpenSprinkler('10.0.1.31', '8080', 'abc123')
     fredController = fred.getController()
     print('CONTROLLER INFORMATION\n')
     fredController.printController()
