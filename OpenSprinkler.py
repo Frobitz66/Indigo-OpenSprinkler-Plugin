@@ -10,31 +10,59 @@ from datetime import datetime, timezone
 
 logging.basicConfig(filename="OpenSprinkler.log", level=logging.DEBUG)
 
-#
-# The OpenSprinklerController class describes an OpenSprinkler "Controller" which
-# derives its functions from the OpenSprinkler API.  Specifically, the
-# following API functions:
-# 1 Get Controller Variables            "/jc?pw=xxx"
-# 2 Change Controller Variables         "/cv?pw=xxx&rsn=x&rbt=x&en=x&rd=x&re=x&update=x"
-# 3 Get Options                         "/jo?pw=xxx"
-# 4 Change Options                      "/co?pw=xxx&o?=x&loc=x&wtkey=x&two=x&ifkey=x&ttt=x
-# 5 Set Password                        "/sp?pw=xxx&npw=xxx&cpw=xxx"
-# 6 Get Station Names and Attributes    "/jn?pw=xxx"
-# 7 Get Special Station Data            "/je?pw=xxx"
-# 8 Change Station Names and Attributes "/cs?pw=xxx&s?=xxx&m?=xxx&i?=xxx&n?=xxx&d?=xxx&q?=xxx&p?=xxx&sid=xxx&st=xxx&sd=xxx"
-# 9 Get Station Status                  "/js?pw=xxx"
-# 10 Manual Station Run                  "/cm?pw=xxx&sid=xxx&en=xxx&t=xxx"
-# 11 Manually Start Program              "/mp?pw=xxx&pid=xxx&uwt=x
-# 12 Get Program Data                    "/jp?pw=xxx"
-# 13 Change Program Data                 "/cp?pw=xxx&pid=xxx&v=[flag,days0,days1,[start0,start1,start2,start3],[dur0,dur1,dur2,...]]&name=xxx"
-# 14 Delete Programs                     "/dp?pw=xxx&pid=xxx"
-# 15 Move Up (re-order) Program          "/up?pw=xxx&pid=xxx"
-# 16 Start Run-Once Program              "/cr?pw=xxx&t=[x,x,x,...,x,x]"
-# 17 Get Log Data                        "/jl?pw=xxx&[start=xxx&end=xxx&type=xxx]||[hist=n&type=xxx]"
-# 18 Delete Log Data                     "/dl?pw=xxx&day=n"
-# 19 Change Javascript URL               "/cu?pw=xxx&jsp=xxx"
-# 20 Get All                             "/ja?pw=xxx"
-#
+################################################################################
+##                                                                            ##
+##                           OpenSprinklerController                          ##
+##                                                                            ##
+##------------------------------------------------------------------------------
+## The OpenSprinklerController class describes an OpenSprinkler "Controller"  ##
+## which derives its functions from the OpenSprinkler API.  Specifically, the ##
+## following API functions:                                                   ##
+## 1 Get Controller Vars                                                      ##
+##    "/jc?pw=xxx"                                                            ##
+## 2 Change Controller Vars                                                   ##
+##    "/cv?pw=xxx&rsn=x&rbt=x&en=x&rd=x&re=x&update=x"                        ##
+## 3 Get Options                                                              ##
+##    "/jo?pw=xxx"                                                            ##
+## 4 Change Options                                                           ##
+##    "/co?pw=xxx&o?=x&loc=x&wtkey=x&two=x&ifkey=x&ttt=x                      ##
+## 5 Set Password                                                             ##
+##    "/sp?pw=xxx&npw=xxx&cpw=xxx"                                            ##
+## 6 Get Station Names and Attrs                                              ##
+##    "/jn?pw=xxx"                                                            ##
+## 7 Get Special Station Data                                                 ##
+##    "/je?pw=xxx"                                                            ##
+## 8 Change Station Names and Attrs                                           ##
+##    "/cs?pw=xxx&s?=xxx&m?=xxx&i?=xxx&n?=xxx&d?=xxx&q?=xxx&p?=xxx&sid=xxx&   ##
+##     st=xxx&sd=xxx"                                                         ##
+## 9 Get Station Status                                                       ##
+##    "/js?pw=xxx"                                                            ##
+## 10 Manual Station Run                                                      ##
+##    "/cm?pw=xxx&sid=xxx&en=xxx&t=xxx"                                       ##
+## 11 Manually Start Program                                                  ##
+##    "/mp?pw=xxx&pid=xxx&uwt=xxx"                                            ##
+## 12 Get Program Data                                                        ##
+##    "/jp?pw=xxx"                                                            ##
+## 13 Change Program Data                                                     ##
+##    "/cp?pw=xxx&pid=xxx&v=[flag,days0,days1,[start0,start1,start2,start3],  ##
+##     [dur0,dur1,dur2,...]]&name=xxx"                                        ##
+## 14 Delete Programs                                                         ##
+##    "/dp?pw=xxx&pid=xxx"                                                    ##
+## 15 Move Up (re-order) Program                                              ##
+##    "/up?pw=xxx&pid=xxx"                                                    ##
+## 16 Start Run-Once Program                                                  ##
+##    "/cr?pw=xxx&t=[x,x,x,...,x,x]"                                          ##
+## 17 Get Log Data                                                            ##
+##    "/jl?pw=xxx&[start=xxx&end=xxx&type=xxx]||[hist=n&type=xxx]"            ##
+## 18 Delete Log Data                                                         ##
+##    "/dl?pw=xxx&day=n"                                                      ##
+## 19 Change Javascript URL                                                   ##
+##    "/cu?pw=xxx&jsp=xxx"                                                    ##
+## 20 Get All                                                                 ##
+##    "/ja?pw=xxx"                                                            ##
+## 21 Get Firmware                                                            ##
+##    "/fw"                                                                   ##
+################################################################################
 class OpenSprinklerController(object):
     """This class represents the Controller of an OpenSprinkler device.
     
@@ -322,17 +350,20 @@ class OpenSprinklerController(object):
             debug.error('Failed to set controller_xxx')
 
 
-
-#
-# The OpenSprinklerStation class describes an OpenSprinkler "Station" which 
-# derives its functions from the OpenSprinkler API. Specifically, the
-# following API functions:
-#  Get Station Names  "/jn?pw=xxx"
-#  Get Station Status "/js?pw=xxx"
-#
-# The OpenSprinklerStation class represents a single "Station" and contains
-# only the information relevant to a single "Station".
-#
+################################################################################
+##                                                                            ##
+##                         OpenSprinklerStation                               ##
+##                                                                            ##
+##----------------------------------------------------------------------------##
+## The OpenSprinklerStation class describes an OpenSprinkler "Station" which  ##
+## derives its functions from the OpenSprinkler API. Specifically, the        ##
+## following API functions:                                                   ##
+##  Get Station Names  "/jn?pw=xxx"                                           ##
+##  Get Station Status "/js?pw=xxx"                                           ##
+##                                                                            ##
+## The OpenSprinklerStation class represents a single "Station" and contains  ##
+## only the information relevant to a single "Station".                       ##
+################################################################################
 class OpenSprinklerStation(object):
     station_name = ''
     status = 0
@@ -445,12 +476,16 @@ class OpenSprinklerStation(object):
         none
 
        
-#
-# The OpenSprinklerProgram class describes and OpenSprinkler "Program" which
-# derives its functions from the OpenSprinkler API. Specifically, the
-# the following API functions:
-#  Get Program Data  "/jp?pw=xxx"
-#
+################################################################################
+##                                                                            ##
+##                             OpenSprinklerProgram                           ##
+##                                                                            ##
+##----------------------------------------------------------------------------##
+## The OpenSprinklerProgram class describes and OpenSprinkler "Program" which ##
+## derives its functions from the OpenSprinkler API. Specifically, the        ##
+## the following API functions:                                               ##
+##  Get Program Data  "/jp?pw=xxx"                                            ##
+################################################################################
 class OpenSprinklerProgram(object):
     week = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
     program_name = ''
@@ -666,7 +701,13 @@ class OpenSprinklerProgram(object):
         except:
             logging.error('Error: Could not set program durations')
             
-
+################################################################################
+##                                                                            ##
+##                                  OpenSprinkler                             ##
+##                                                                            ##
+##----------------------------------------------------------------------------##
+## 
+################################################################################
 class OpenSprinkler(object):
     """Class representing an OpenSprinkler device.
     
@@ -729,7 +770,7 @@ class OpenSprinkler(object):
             logging.debug('\tOS Result Code: %s' % str(OSResult))
             OSConnection.close()
             logging.debug('\tResulting JSON Value: %s' % str(retVal))
-            if code != '200':
+            if code != 200:
                 print('HTTP Error encountered')
                 print('Unauthorized')
                 raise OS_UnauthorizedException()
@@ -759,8 +800,8 @@ class OpenSprinkler(object):
         
         """
         try:
-            JSONDictionary = self.executeCommand('ja')
-            self.controller = OpenSprinklerController(JSONDictionary)
+            logging.debug('Trying to execute command "ja"')
+            self.controller = OpenSprinklerController(self.executeCommand('ja'))
             return self.controller
         except:
             logging.error('Error returning Controller object')
@@ -826,7 +867,11 @@ class OpenSprinkler(object):
             self.write('cm', 'sid=%s' % sid, 'en=%s' % en, 't=%s' % t)
 
 
-
+################################################################################
+##                                                                            ##
+##                          EXCEPTION HANDLING CLASSES                        ##
+##                                                                            ##
+################################################################################
 
 class OS_Exception(Exception):
     """Base class for exceptions in this module."""
@@ -910,14 +955,17 @@ class OS_NotPermittedException(OS_Exception):
     def __str__(self):
         return self.message
 
+################################################################################
+##                                 Fallback                                   ##
+################################################################################
     
 if __name__ == "__main__":
-    ######################################################################################                
+    ############################################################################
     # The fun begins here
-    fred = OpenSprinkler('10.0.1.31', '8080', 'abc123')
+    fred = OpenSprinkler('10.0.1.31', '8080', 'KirasFlowersNeedLove')
     fredController = fred.getController()
     print('CONTROLLER INFORMATION\n')
-    fredController.printController()
+    fredController.list()
     fredPrograms = fredController.getPrograms()
     print('PROGRAM INFORMATION\n')
     for program in fredPrograms:
